@@ -15,6 +15,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -223,20 +224,37 @@ public class ProductServiceApplication implements CommandLineRunner {
 //		product3.setCategory(category);
 //		Product savedProduct3 = productRepository.save(product3);
 
-		Optional<Category> optionalCategory = categoryRepository.findById(UUID.fromString("670262b1-4895-4795-b985-f857a3531357"));
+//		Optional<Category> optionalCategory = categoryRepository.findById(UUID.fromString("670262b1-4895-4795-b985-f857a3531357"));
+//
+//		if(optionalCategory.isEmpty()){
+//			throw new Exception("No Category found:");
+//		}
+//
+//		Category category = optionalCategory.get();
+//
+//		List<Product> products = category.getProducts();
+//
+//		for(Product product : products){
+//			System.out.println(product.getTitle());
+//		}
 
-		if(optionalCategory.isEmpty()){
-			throw new Exception("No Category found:");
+//		List<Product> products = productRepository.findAllByTitle("iPhone1");
+//		List<Product> products1 = productRepository.findAllByTitleAndDescription("iPhone3","iphone 14c max");
+
+//		Category category = new Category();
+//		category.setName("Samsung");
+//		Category category1 = categoryRepository.save(category);
+//
+//		Price price = new Price();
+//		price.setValue(49000);
+//		price.setCurrency("INR");
+//
+//Product product = new Product("Samsung","fold","xyz",category1,price);
+//		productRepository.save(product);
+List<Product> products = productRepository.findAllByPrice_ValueBetween(20000,50000);
+		for(Product product1 : products){
+			System.out.println(product1.getTitle());
 		}
-
-		Category category = optionalCategory.get();
-
-		List<Product> products = category.getProducts();
-
-		for(Product product : products){
-			System.out.println(product.getTitle());
-		}
-
 
 	}
 }
