@@ -10,10 +10,12 @@ import com.productservice.productservice.repositories.OrderRepository;
 import com.productservice.productservice.repositories.PriceRepository;
 import com.productservice.productservice.repositories.CategoryRepository;
 import com.productservice.productservice.repositories.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,17 +25,29 @@ public class ProductServiceApplication implements CommandLineRunner {
 	private final CategoryRepository categoryRepository;
 	private final ProductRepository productRepository;
 	private final PriceRepository priceRepository;
-	private final OrderRepository orderRepository;
 
 	public ProductServiceApplication(CategoryRepository categoryRepository,
 									 ProductRepository productRepository,
-									 PriceRepository priceRepository,
-									 OrderRepository orderRepository) {
+									 PriceRepository priceRepository) {
 		this.categoryRepository = categoryRepository;
 		this.productRepository = productRepository;
 		this.priceRepository = priceRepository;
-		this.orderRepository = orderRepository;
 	}
+
+//	private final CategoryRepository categoryRepository;
+//	private final ProductRepository productRepository;
+//	private final PriceRepository priceRepository;
+//	private final OrderRepository orderRepository;
+//
+//	public ProductServiceApplication(CategoryRepository categoryRepository,
+//									 ProductRepository productRepository,
+//									 PriceRepository priceRepository,
+//									 OrderRepository orderRepository) {
+//		this.categoryRepository = categoryRepository;
+//		this.productRepository = productRepository;
+//		this.priceRepository = priceRepository;
+//		this.orderRepository = orderRepository;
+//	}
 
 //	private UserRepository userRepository;
 //	private StudentRepository studentRepository;
@@ -74,6 +88,7 @@ public class ProductServiceApplication implements CommandLineRunner {
 	}
 
 	@Override
+	@Transactional()
 	public void run(String... args) throws Exception {
 //		Mentor mentor = new Mentor();
 //		mentor.setName("Deepak");
@@ -152,7 +167,7 @@ public class ProductServiceApplication implements CommandLineRunner {
 //		price.setCurrency("INR");
 //		price.setValue(100000);
 //
-//		Price savedPrice = priceRepository.save(price);
+//		//Price savedPrice = priceRepository.save(price);
 //
 //		Category category = new Category();
 //		category.setName("Apple devices");
@@ -161,17 +176,67 @@ public class ProductServiceApplication implements CommandLineRunner {
 //
 //		Product product = new Product();
 //		product.setCategory(savedCategory);
-//		product.setPrice(savedPrice);
+//		product.setPrice(price);
 //		product.setTitle("Iphone 15 pro");
 //		product.setDescription("Best Iphone");
 //		Product savedProduct = productRepository.save(product);
+
+		//productRepository.deleteById(UUID.fromString("c371f0de-3187-4035-afbf-c421625ef82b"));
+
+//		Category category = new Category();
+//		category.setName("Apple Device");
+//		Category savedCategory = categoryRepository.save(category);
+//
+//		Price price1 = new Price();
+//		price1.setValue(100000);
+//		price1.setCurrency("INR");
+//
+//		Product product1 = new Product();
+//		product1.setPrice(price1);
+//		product1.setTitle("iPhone1");
+//		product1.setDescription("iphone 14c max");
+//		product1.setCategory(category);
+//		Product savedProduct = productRepository.save(product1);
+//
+//		Price price2 = new Price();
+//		price2.setValue(100000);
+//		price2.setCurrency("INR");
 //
 //
-//		Order  order = new Order();
-//		orderRepository.save(order);
+//		Product product2 = new Product();
+//		product2.setPrice(price2);
+//		product2.setTitle("iPhone2");
+//		product2.setDescription("iphone 14c max");
+//		product2.setCategory(category);
+//		Product savedProduct1 = productRepository.save(product2);
+//
+//
+//		Price price3 = new Price();
+//		price3.setValue(100000);
+//		price3.setCurrency("INR");
+//
+//
+//		Product product3 = new Product();
+//		product3.setPrice(price3);
+//		product3.setTitle("iPhone3");
+//		product3.setDescription("iphone 15c max");
+//		product3.setCategory(category);
+//		Product savedProduct3 = productRepository.save(product3);
 
+		Optional<Category> optionalCategory = categoryRepository.findById(UUID.fromString("670262b1-4895-4795-b985-f857a3531357"));
 
-		priceRepository.deleteById(UUID.fromString("d79e611c-1b88-4ba2-869f-0e98165b82f0"));
+		if(optionalCategory.isEmpty()){
+			throw new Exception("No Category found:");
+		}
+
+		Category category = optionalCategory.get();
+
+		List<Product> products = category.getProducts();
+
+		for(Product product : products){
+			System.out.println(product.getTitle());
+		}
+
 
 	}
 }
