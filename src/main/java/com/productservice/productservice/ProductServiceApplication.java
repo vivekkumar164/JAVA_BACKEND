@@ -251,10 +251,10 @@ public class ProductServiceApplication implements CommandLineRunner {
 //
 //Product product = new Product("Samsung","fold","xyz",category1,price);
 //		productRepository.save(product);
-List<Product> products = productRepository.findAllByPrice_ValueBetween(20000,50000);
-		for(Product product1 : products){
-			System.out.println(product1.getTitle());
-		}
+//List<Product> products = productRepository.findAllByPrice_ValueBetween(20000,50000);
+//		for(Product product1 : products){
+//			System.out.println(product1.getTitle());
+//		}
 
 	}
 }

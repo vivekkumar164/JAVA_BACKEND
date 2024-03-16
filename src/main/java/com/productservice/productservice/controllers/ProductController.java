@@ -14,7 +14,8 @@ public class ProductController {
     private ProductService productService;
     //@Autowired  this is field injection one of the ways for dependency injection
     //constructor injection
-    ProductController(@Qualifier("fakeStoreProductService") ProductService productService){
+    //@Qualifier("fakeStoreProductService")
+    ProductController( ProductService productService){
         this.productService = productService;
     }
 

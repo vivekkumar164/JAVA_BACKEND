@@ -20,6 +20,7 @@ public class Product extends BaseModel{
     //category is not a primitive attribute  its a relation
 @OneToOne( cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
 private Price price;
+private int inventotyCount;
 }
 
 /*
