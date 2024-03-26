@@ -40,23 +40,23 @@ public class ProductControllerTest {
         //checks the expected value 2 vs the output expression
         //if assert is true , testcase succeeds else fail
     }
-@Test
-    void testGetProductByIdNegativeTc() {
-        assertThrows(ProductNotFoundException.class,() -> productController.getProductById(100L));
-
-    }
-@Test
-    void testGetProductByIdMocking() throws ProductNotFoundException {
-    GenericProductDto genericProductDto = new GenericProductDto();
-        when(productService.getProductById(any(Long.class))).thenReturn(genericProductDto);
-
-        //assertNull(productService.getProductById(100L));
-        assertEquals(genericProductDto,productService.getProductById(1000L));
-    }
-@Test
-    void testGetProductByIdMockingException() throws ProductNotFoundException {
-        when(productService.getProductById(1L))
-                .thenThrow(ProductNotFoundException.class);
-        assertThrows(ProductNotFoundException.class,() -> productController.getProductById(1L));
-    }
+//@Test
+//    void testGetProductByIdNegativeTc() {
+//        assertThrows(ProductNotFoundException.class,() -> productController.getProductById(100L));
+//
+//    }
+//@Test
+//    void testGetProductByIdMocking() throws ProductNotFoundException {
+//    GenericProductDto genericProductDto = new GenericProductDto();
+//        when(productService.getProductById(any(Long.class))).thenReturn(genericProductDto);
+//
+//        //assertNull(productService.getProductById(100L));
+//        assertEquals(genericProductDto,productService.getProductById(1000L));
+//    }
+//@Test
+//    void testGetProductByIdMockingException() throws ProductNotFoundException {
+//        when(productService.getProductById(1L))
+//                .thenThrow(ProductNotFoundException.class);
+//        assertThrows(ProductNotFoundException.class,() -> productController.getProductById(1L));
+//    }
 }

@@ -3,12 +3,16 @@ package com.productservice.productservice.services;
 import com.productservice.productservice.dtos.FakeStoreProductDto;
 import com.productservice.productservice.dtos.GenericProductDto;
 import com.productservice.productservice.exceptions.ProductNotFoundException;
+import com.productservice.productservice.security.JwtObject;
+import com.productservice.productservice.security.TokenValidator;
 import com.productservice.productservice.thirdPartyClients.fakeStoreClient.FakeStoreClient.FakeStoreClient;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Primary
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService{
@@ -26,13 +30,28 @@ public class FakeStoreProductService implements ProductService{
     }
 
     private FakeStoreClient fakeStoreAdapter;
+    private TokenValidator tokenValidator;
 
-    FakeStoreProductService(FakeStoreClient fakeStoreAdapter){
+    FakeStoreProductService(FakeStoreClient fakeStoreAdapter
+    ,TokenValidator tokenValidator){
         this.fakeStoreAdapter = fakeStoreAdapter;
+        this.tokenValidator = tokenValidator;
     }
     @Override
-    public GenericProductDto getProductById(Long id) throws ProductNotFoundException {
-        return convertToGenericProductDto(fakeStoreAdapter.getProductById(id));
+    public GenericProductDto getProductById(String authToken , Long id) throws ProductNotFoundException {
+        System.out.println(authToken);
+        Optional<JwtObject> jwtObjectOptional = tokenValidator.validateToken(authToken);
+        if(jwtObjectOptional.isEmpty()){
+            //invalid token
+            //reject the request
+
+        }
+            JwtObject jwtObject = jwtObjectOptional.get();
+            Long userId = jwtObject.getUserId();
+
+            return convertToGenericProductDto(fakeStoreAdapter.getProductById(id));
+
+
     }
 
     @Override
