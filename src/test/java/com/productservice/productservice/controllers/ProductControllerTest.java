@@ -31,15 +31,15 @@ public class ProductControllerTest {
 @MockBean
     private ProductService productService;
 
-    @Test
-    @DisplayName("Testing 1 + 1 is 2")
-    void testOnePlusOneIsTwoOrNot(){
-        assertTrue(1==2, "1 is not equal to 2");
-        //assertEquals(11,1+1,"1 + 1 should be true:");
-        //assert (2 == 1 + 1);
-        //checks the expected value 2 vs the output expression
-        //if assert is true , testcase succeeds else fail
-    }
+//    @Test
+//    @DisplayName("Testing 1 + 1 is 2")
+//    void testOnePlusOneIsTwoOrNot(){
+//        assertTrue(1==2, "1 is not equal to 2");
+//        //assertEquals(11,1+1,"1 + 1 should be true:");
+//        //assert (2 == 1 + 1);
+//        //checks the expected value 2 vs the output expression
+//        //if assert is true , testcase succeeds else fail
+//    }
 //@Test
 //    void testGetProductByIdNegativeTc() {
 //        assertThrows(ProductNotFoundException.class,() -> productController.getProductById(100L));

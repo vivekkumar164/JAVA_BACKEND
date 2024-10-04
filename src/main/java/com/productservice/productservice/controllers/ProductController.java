@@ -12,56 +12,65 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    private ProductService productService;
-    //@Autowired  this is field injection one of the ways for dependency injection
-    //constructor injection
-    //@Qualifier("fakeStoreProductService")
-    ProductController( ProductService productService){
+    private final ProductService productService;
+
+    // @Autowired OPTIONAL
+    // Constructor Injection.
+    // @Qualifier("fakeStoreProductService")
+    ProductController(ProductService productService) {
         this.productService = productService;
     }
 
+//    @Autowired
+//    public void setProductService(ProductService productService) {
+//        this.productService = productService;
+//    }
 
-
-    /*@Autowired eg of setter injection
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
-    } */
-
+    //localhost:8080/products/12345
     @GetMapping("/{id}")
     public GenericProductDto getProductById(@RequestHeader(HttpHeaders.AUTHORIZATION) String authToken, @PathVariable("id") Long id) throws ProductNotFoundException {
-    //return "Product fetched with id " + id;
-        return productService.getProductById(authToken,id);
+        GenericProductDto genericProductDto = productService.getProductById(authToken, id);
+//        GenericProductDto genericProductDto1 = new GenericProductDto();
+        return genericProductDto;
     }
+
     @GetMapping
-    public List<GenericProductDto> getAllProducts(){
-       return  productService.getAllProducts();
+    public List<GenericProductDto> getAllProducts() {
+        return productService.getAllProducts();
     }
+
     @DeleteMapping("/{id}")
-    public GenericProductDto deleteProductById(@PathVariable("id") Long id){
-       return this.productService.deleteProductById(id);
+    public GenericProductDto deleteProductById(@PathVariable("id") Long id) {
+        return productService.deleteProductById(id);
     }
+
     @PostMapping
-    public GenericProductDto createProduct(@RequestBody GenericProductDto genericProductDto){
+    public GenericProductDto createProduct(@RequestBody GenericProductDto genericProductDto) {
         return productService.createProduct(genericProductDto);
     }
-    @PatchMapping("/{id}")
-    public GenericProductDto updateProductById(@PathVariable("id") Long id , @RequestBody GenericProductDto genericProductDto){
-        return productService.updateProductById(id,genericProductDto);
+
+    public void updateProductById() {
+
     }
-//@ExceptionHandler(ProductNotFoundException.class)
-//    private ResponseEntity<ExceptionDto> handleProductNotFoundException(ProductNotFoundException productNotFoundException){
+
+//    @ExceptionHandler(ProductNotFoundException.class)
+//    private ResponseEntity<ExceptionDto> handleProductNotFoundException(ProductNotFoundException productNotFoundException) {
 //        ExceptionDto exceptionDto = new ExceptionDto();
-//        exceptionDto.setMessage(productNotFoundException.getMessage());
 //        exceptionDto.setHttpStatus(HttpStatus.NOT_FOUND);
+//        exceptionDto.setMessage(productNotFoundException.getMessage());
 //
-//        ResponseEntity responseEntity = new ResponseEntity(exceptionDto,HttpStatus.NOT_FOUND);
+//        ResponseEntity responseEntity = new ResponseEntity(exceptionDto, HttpStatus.NOT_FOUND);
 //
 //        return responseEntity;
 //    }
 }
 
-/*threre are three ways of doing  depenency injection
-1 constructor injection
-2 field injection  ---https://stackoverflow.com/questions/39890849/what-exactly-is-field-injection-and-how-to-avoid-it
-3 settter injection
-* */
+
+/*
+
+3 ways of Dependency Injection :-
+
+1. Constructor Injection
+2. Field Injection
+3. Setter Injection.
+ */
