@@ -1,5 +1,6 @@
 package com.productservice.productservice.models;
 
+import com.productservice.productservice.dtos.GenericProductDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,17 @@ public class Product extends BaseModel{
 @OneToOne( cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
 private Price price;
 private int inventotyCount;
+
+    public GenericProductDto from(Product product) {
+        GenericProductDto genericProductDto = new GenericProductDto();
+        genericProductDto.setTitle(product.getTitle());
+        genericProductDto.setDescription(product.getDescription());
+        //genericProductDto.setPrice(product.getPrice());
+        genericProductDto.setImage(product.getImage());
+        //genericProductDto.setId(product.getId());
+        genericProductDto.setInventoryCount(product.getInventotyCount());
+        return genericProductDto;
+    }
 }
 
 /*

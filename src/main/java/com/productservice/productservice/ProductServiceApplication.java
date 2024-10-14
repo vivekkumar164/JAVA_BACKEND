@@ -21,19 +21,19 @@ import java.util.Optional;
 import java.util.UUID;
 
 @SpringBootApplication
-public class ProductServiceApplication {
+public class ProductServiceApplication implements CommandLineRunner{
 
-//	private final CategoryRepository categoryRepository;
-//	private final ProductRepository productRepository;
-//	private final PriceRepository priceRepository;
-//
-//	public ProductServiceApplication(CategoryRepository categoryRepository,
-//									 ProductRepository productRepository,
-//									 PriceRepository priceRepository) {
-//		this.categoryRepository = categoryRepository;
-//		this.productRepository = productRepository;
-//		this.priceRepository = priceRepository;
-//	}
+	private final CategoryRepository categoryRepository;
+	private final ProductRepository productRepository;
+	private final PriceRepository priceRepository;
+
+	public ProductServiceApplication(CategoryRepository categoryRepository,
+									 ProductRepository productRepository,
+									 PriceRepository priceRepository) {
+		this.categoryRepository = categoryRepository;
+		this.productRepository = productRepository;
+		this.priceRepository = priceRepository;
+	}
 
 //	private final CategoryRepository categoryRepository;
 //	private final ProductRepository productRepository;
@@ -142,45 +142,80 @@ public class ProductServiceApplication {
 ////
 ////		mentorRepository.save(mentor);
 //
-////		Category category = new Category();
-////		category.setName("Apple Devices");
-////
-////		Category savedCategory = categoryRepository.save(category);
-////		Optional<Category> optionalCategory = categoryRepository.findById(UUID.fromString("0a2b3350-013e-42e7-aeb7-437175491d2e"));
-////		if(optionalCategory.isEmpty()){
-////			throw new Exception("Category was null:");
-////		}
-////		Category category = optionalCategory.get();
-////		Product product = new Product();
-////		product.setTitle("iPhone 15 pro");
-////		product.setDescription("Best product");
-////		product.setCategory(category.get());
-////
-////		Product savedProduct = productRepository.save(product);
+//		Category category = new Category();
+//		category.setName("Apple Devices");
+//
+//		Category savedCategory = categoryRepository.save(category);
+//		Optional<Category> optionalCategory = categoryRepository.findById(UUID.fromString("0a2b3350-013e-42e7-aeb7-437175491d2e"));
+//		if(optionalCategory.isEmpty()){
+//			throw new Exception("Category was null:");
+//		}
+//		Category category = optionalCategory.get();
+//		Product product = new Product();
+//		product.setTitle("iPhone 15 pro");
+//		product.setDescription("Best product");
+//		product.setCategory(category.get());
+//
+//		Product savedProduct = productRepository.save(product);
 //
 //		//Find all products with  category = apple
-////		List<Product> products = category.getProducts();
-////		for(Product product : products){
-////			System.out.println(product.getTitle());
-////		}
+//		List<Product> products = category.getProducts();
+//		for(Product product : products){
+//			System.out.println(product.getTitle());
+//		}
 //
-////		Price price = new Price();
-////		price.setCurrency("INR");
-////		price.setValue(100000);
-////
-////		//Price savedPrice = priceRepository.save(price);
-////
-////		Category category = new Category();
-////		category.setName("Apple devices");
-////
-////		Category savedCategory = categoryRepository.save(category);
-////
-////		Product product = new Product();
-////		product.setCategory(savedCategory);
-////		product.setPrice(price);
-////		product.setTitle("Iphone 15 pro");
-////		product.setDescription("Best Iphone");
-////		Product savedProduct = productRepository.save(product);
+//		Price price = new Price();
+//		price.setCurrency("INR");
+//		price.setValue(100000);
+//
+//		//Price savedPrice = priceRepository.save(price);
+//
+//		Category category = new Category();
+//		category.setName("Apple devices");
+//
+//		Category savedCategory = categoryRepository.save(category);
+//
+//		Product product = new Product();
+//		product.setCategory(savedCategory);
+//		product.setPrice(price);
+//		product.setTitle("Iphone 15 pro");
+//		product.setDescription("Best Iphone");
+//		Product savedProduct = productRepository.save(product);
+
+	@Override
+	public void run(String... args) throws Exception {
+//		Category category = new Category();
+//        category.setName("Apple Devices");
+//
+//        Category savedCategory = categoryRepository.save(category);
+//
+//
+//
+//
+//        Product product = new Product();
+//        product.setTitle("iPhone 15 pro");
+//        product.setDescription("Best iPhone ever");
+//        product.setCategory(savedCategory);
+//
+//        Product savedProduct = productRepository.save(product);
+//
+//        Price price = new Price();
+//        price.setCurrency("INR");
+//        price.setValue(100000);
+//
+//
+//        Category category2 = new Category();
+//        category2.setName("Apple Devices");
+//        Category savedCategoy = categoryRepository.save(category2);
+//
+//        Product product1 = new Product();
+//        product1.setTitle("iPhone 15 pro");
+//        product1.setDescription("Best iPhone ever");
+//        product1.setCategory(savedCategoy);
+//        product1.setPrice(price);
+//
+//        Product savedProduct1 = productRepository.save(product);
+	}
 //
 //		//productRepository.deleteById(UUID.fromString("c371f0de-3187-4035-afbf-c421625ef82b"));
 //
