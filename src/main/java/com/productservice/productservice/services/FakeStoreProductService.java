@@ -7,6 +7,7 @@ import com.productservice.productservice.security.JwtObject;
 import com.productservice.productservice.security.TokenValidator;
 import com.productservice.productservice.thirdPartyClients.fakeStoreClient.FakeStoreClient.FakeStoreClient;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,24 +33,34 @@ public class FakeStoreProductService implements ProductService{
     private FakeStoreClient fakeStoreAdapter;
     private TokenValidator tokenValidator;
 
+    private RedisTemplate<String,FakeStoreProductDto> redisTemplate;
+
     FakeStoreProductService(FakeStoreClient fakeStoreAdapter
-    ,TokenValidator tokenValidator){
+    ,TokenValidator tokenValidator,RedisTemplate redisTemplate){
         this.fakeStoreAdapter = fakeStoreAdapter;
         this.tokenValidator = tokenValidator;
+        this.redisTemplate =redisTemplate;
     }
     @Override
     public GenericProductDto getProductById(String authToken , Long id) throws ProductNotFoundException {
         System.out.println(authToken);
         Optional<JwtObject> jwtObjectOptional = tokenValidator.validateToken(authToken);
-        if(jwtObjectOptional.isEmpty()){
-            //invalid token
-            //reject the request
+//        if(jwtObjectOptional.isEmpty()){
+//            //invalid token
+//            //reject the request
+//
+//        }
+//            JwtObject jwtObject = jwtObjectOptional.get();
+            //Long userId = jwtObject.getUserId();
+        FakeStoreProductDto fakeStoreProductDto = (FakeStoreProductDto) redisTemplate.opsForHash().get("PRODUCTS", id);
 
+        if (fakeStoreProductDto != null) {
+            return convertToGenericProductDto(fakeStoreProductDto);
         }
-            JwtObject jwtObject = jwtObjectOptional.get();
-            Long userId = jwtObject.getUserId();
 
-            return convertToGenericProductDto(fakeStoreAdapter.getProductById(id));
+        fakeStoreProductDto = fakeStoreAdapter.getProductById(id);
+        redisTemplate.opsForHash().put("PRODUCTS", id, fakeStoreProductDto);
+        return convertToGenericProductDto(fakeStoreProductDto);
 
 
     }
