@@ -4,6 +4,7 @@ import com.mysql.cj.PreparedQuery;
 import com.productservice.productservice.dtos.GenericProductDto;
 import com.productservice.productservice.models.Product;
 import com.productservice.productservice.models.SortParam;
+import com.productservice.productservice.repositories.OpenSearchProductRepository;
 import com.productservice.productservice.repositories.ProductRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,10 +16,21 @@ import java.util.List;
 
 @Service
 public class SearchService {
-    private ProductRepository productRepository;
+    //private ProductRepository productRepository;
+    private OpenSearchProductRepository openSearchProductRepository;
 
-    public SearchService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+//    public SearchService(
+//            ProductRepository productRepository ,
+//            OpenSearchProductRepository openSearchProductRepository
+//    ) {
+//        this.productRepository = productRepository;
+//        this.openSearchProductRepository = openSearchProductRepository;
+//    }
+
+    public SearchService(
+            OpenSearchProductRepository openSearchProductRepository
+    ) {
+        this.openSearchProductRepository = openSearchProductRepository;
     }
 
     public List<GenericProductDto> searchProducts(String query, int pageNumber, int pageSize , List<SortParam> sortParams) {
@@ -46,7 +58,8 @@ public class SearchService {
             }
         }
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize , sort);
-        List<Product> products = productRepository.findAllByTitleContainingIgnoreCase(query, pageRequest);
+       // List<Product> products = productRepository.findAllByTitleContainingIgnoreCase(query, pageRequest);
+        List<Product> products = openSearchProductRepository.findAllByTitleContainingIgnoreCase(query, pageRequest);
         List<GenericProductDto> genericProductDtos = new ArrayList<>();
         for (Product product : products) {
             genericProductDtos.add(product.from(product));
