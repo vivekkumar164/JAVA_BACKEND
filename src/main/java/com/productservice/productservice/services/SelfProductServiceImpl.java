@@ -21,9 +21,11 @@ import java.util.UUID;
 public class SelfProductServiceImpl implements ProductService {
    // private  OpenSearchProductRepository openSearchProductRepository;
     private ProductRepository productRepository;
+    private RestTemplate restTemplate;
 
-    SelfProductServiceImpl(ProductRepository productRepository){
+    SelfProductServiceImpl(ProductRepository productRepository,RestTemplate restTemplate){
         this.productRepository = productRepository;
+        this.restTemplate = restTemplate;
     }
     @Override
     public GenericProductDto getProductById(String authToken , Long id) throws ProductNotFoundException {
@@ -36,9 +38,9 @@ public class SelfProductServiceImpl implements ProductService {
 //        genericProductDto.setCategory(product.getCategory().toString());
 //        genericProductDto.setPrice(0);
 //        return genericProductDto;
-        RestTemplate restTemplate = new RestTemplate();
+        //RestTemplate restTemplate = new RestTemplate();
         //restTemplate.getForEntity("http://localhost:4000/users/1", UserDto.class);
-        ResponseEntity<UserDto> responseEntity = restTemplate.getForEntity("http://localhost:4000/users/1", UserDto.class);
+        ResponseEntity<UserDto> responseEntity = restTemplate.getForEntity("http://userservice/users/1", UserDto.class);
         return genericProductDto;
     }
 
