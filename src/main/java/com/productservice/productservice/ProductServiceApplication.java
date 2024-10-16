@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @SpringBootApplication
+@EnableDiscoveryClient
 public class ProductServiceApplication implements CommandLineRunner{
 
 	private final CategoryRepository categoryRepository;
